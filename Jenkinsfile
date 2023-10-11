@@ -10,8 +10,8 @@ pipeline {
 
      stage('Provision Infrastructure'){
         environment{
-            AWS_ACCESS_KEY = credentials("aws-access-keys") // this will be used in future versions of Terraform to authenticate
-            AWS_SECRET_ACCESS_KEY = credentials("secret-access-key")
+            AWS_ACCESS_KEY = credentials("secret-access-keys") // this will be used in future versions of Terraform to authenticate
+            AWS_SECRET_ACCESS_KEY = credentials("aws-secret-access-key")
         
         }
         steps{
@@ -23,17 +23,6 @@ pipeline {
      stage('Thank You'){
         steps{
             echo "Yaay successful TF deployment You're welcome!"
-        }
-     }
-
-     stage('Destroy everything'){
-        environment{
-            AWS_ACCESS_KEY = credentials("secret-access-keys") // this will be used in future versions of Terraform to authenticate
-            AWS_SECRET_ACCESS_KEY = credentials("aws-secret-access-key")
-        
-        }
-        steps{
-            sh "terraform destroy --auto-approve"
         }
      }
 
